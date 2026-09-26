@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Gunjan Di</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<canvas id="confetti"></canvas>
+<div id="progress"></div>
+
+<!-- Gift Screen -->
+<div id="gift-screen">
+  <div class="locket" id="openLocket">💝</div>
+  <h2 class="gift-title">a little something for you, Gunjan Di</h2>
+  <p class="gift-sub">A few memories, a little surprise, and a lot of effort from your annoying brother 😂. Tap the sparkle to open,and enjoy the little surprise.</p>
+  <button class="open-btn" id="openBtn">Open The Magic</button>
+  <div class="countdown-tiny" id="countdownTxt"></div>
+</div>
+
+<!-- Audio -->
+<audio id="bgMusic" src="audio/bgm-focus-happy.mp3" loop preload="auto"></audio>
+<audio id="magicSound" src="audio/fireworks.mp3" preload="auto"></audio>
+<audio id="fireworkSound" src="audio/fireworks.mp3" preload="auto"></audio>
+
+<!-- Floating Interactive Tools -->
+<div class="tools-container">
+  <div class="float-btn" id="magicWand" title="Change Colors!"><span class="btn-icon">🪄</span></div>
+  <div class="float-btn" id="music-toggle" title="Toggle Music"><canvas id="vizCanvas" width="60" height="60"></canvas><span class="btn-icon" id="musicIcon">♪</span></div>
+</div>
+
+<main id="mainContent">
+  <section class="hero">
+    <div class="eyebrow-text">Today, It’s All About You ✨</div>
+    <h1>Gunjan</h1>
+    <p class="tag" id="typewriterTag"><span id="twText"></span><span class="cursor-blink">|</span></p>
+    <div class="scroll-hint"><span>↓</span><br>Scroll Down</div>
+  </section>
+
+  <section id="letter">
+    <div class="section-head reveal"><h2>Just A Few Words</h2><p>Before we dive into some old memories and good times</p></div>
+    <div class="colorful-glass letter reveal">
+      <p>Di, I don’t say this enough, but I’m really glad we got to grow up sharing some of those childhood years together. From studying together to all the random memories, those little moments are still fun to remember.</p>
+      <p>We may not meet very often, but whenever we do, somehow the same old vibe comes back — and obviously, I still have to annoy you a little. 😂</p>
+      <p>So this little page is just a small collection of some memories, a birthday wish, and a reminder that you’re genuinely special to me.</p>
+      <p>Happy Birthday, Di ❤️ Wishing you lots of happiness, success, and many more good moments ahead. Keep smiling, keep doing great, and don’t worry… I’ll continue to annoy you whenever I get the chance. 😂✨</p>
+      <div class="signoff">— Your fav headache, Amane🤧</div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="section-head reveal"><h2>Some Moments Worth Remembering 💞</h2><p>Tap any card to see the magic</p></div>
+    <div class="timeline" id="timelineGrid"></div>
+  </section>
+
+  <section id="vouchers">
+    <div class="section-head reveal"><h2>Birthday Vouchers 🎟️</h2><p>Exclusive privileges just for you, valid anytime! don’t get used to it 😂</p></div>
+    <div class="voucher-grid">
+      <div class="voucher-card reveal">
+        <h3>Chai & Maggi ☕🍜</h3>
+        <p>Next time we meet, one chai or Maggi — made by my own hands, just for you. 😂❤️</p>
+        <button class="voucher-btn" onclick="redeemVoucher(this, 'Chai & Maggi')">Redeem Now</button>
+      </div>
+      <div class="voucher-card reveal">
+        <h3>Creative Help Pass 🎨</h3>
+        <p>One video edit, or small website — made by your personal creative department. 😂</p>
+        <button class="voucher-btn" onclick="redeemVoucher(this, 'Creative Help Pass')">Redeem Now</button>
+      </div>
+      <div class="voucher-card reveal">
+        <h3>Midnight Movie Night 🎬</h3>
+        <p>One late-night movie together the next time we meet. You pick the movie, we’ll bring the company.🍿</p>
+        <button class="voucher-btn" onclick="redeemVoucher(this, 'Midnight Movie Night')">Redeem Now</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="secret">
+    <div class="section-head reveal"><h2>A Secret Note</h2><p>Scratch the card and see what I’ve been hiding for you</p></div>
+    <div class="scratch-wrap reveal">
+      <div class="secret-msg">
+        <h3>Just Remember This ❤️</h3>
+        <p>No matter how much time passes, some people and memories always stay special. You’re one of those people for me. Keep shining and smiling always!! ✨</p>
+      </div>
+      <canvas id="scratchCanvas"></canvas>
+    </div>
+  </section>
+
+  <section id="voice">
+    <div class="section-head reveal"><h2>Okay, Listen To This ❤️🎙️</h2><p>A few things I wanted to say from the heart… so just press play.</p></div>
+    <div class="colorful-glass voice-card reveal">
+      <div class="icon-wrapper">🎧</div>
+      <h3 style="color:#fff; margin:0 0 10px; font-size:32px; font-weight:800;">A Voice Note for You</h3>
+      <p style="color:var(--text-muted); margin:0; font-size:16px; font-weight:500;">Press play when you're ready</p>
+     <audio id="voiceAudio" controls preload="metadata">
+    <source src="audio/realbirthv.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+    </div>
+  </section>
+
+  <section id="wish">
+    <div class="section-head reveal"><h2>Make a Wish</h2><p>Close your eyes and focus</p></div>
+    <div class="candle-wrap reveal">
+      <div class="cake-wrapper">
+        <div class="candle-group">
+          <div class="candle"><div class="flame" onclick="blowThisCandle(this, event)"></div></div>
+          <div class="candle center-candle"><div class="flame" onclick="blowThisCandle(this, event)"></div></div>
+          <div class="candle"><div class="flame" onclick="blowThisCandle(this, event)"></div></div>
+        </div>
+        <div class="cake-emoji">🎂</div>
+      </div>
+      <div class="blow-hint" id="blowHint">Tap each flame to blow it out (3 left)</div>
+      <div class="wish-msg" id="wishMsg">Whatever you wished for, Di<br><span>I hope it's yours before you even ask.</span></div>
+    </div>
+  </section>
+
+  <section id="feedback">
+    <div class="section-head reveal"><h2>Your Turn, Di 💌</h2><p>Okay, now it’s your turn… leave me a little message here ❤️</p></div>
+    <div class="colorful-glass feedback-box reveal">
+      <form id="feedbackForm">
+        <textarea id="fbMsg" name="message" placeholder="How did this little surprise make you feel? Write whatever comes to your mind...❤️" required></textarea><br>
+        <button type="submit" class="send-btn" id="sendFb">Send Message 🚀</button>
+      </form>
+      <div class="fb-thanks" id="fbThanks">Got it! Thanks, Di ❤️ I’m glad you liked it. Now I can finally say all that effort was worth it. 😂✨</div>
+    </div>
+  </section>
+
+  <footer>
+    made with lots of colors, memories and a little bit of chaos • September 27 🎨❤️<br>
+    <span class="dev-credit">
+      developed by <a href="https://www.linkedin.com/in/aman-kumar-4b86a533b" target="_blank" style="color:var(--accent); text-decoration:none; border-bottom:2px dotted var(--accent); padding-bottom:2px;"><b>Aman Kumar</b></a> 😎
+    </span>
+  </footer>
+</main>
+
+<div id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose">×</button>
+    <div class="lb-img-wrap"><img id="lbImg" src="" alt=""></div>
+    <div class="lb-info">
+      <span class="lb-tag" id="lbTag"></span>
+      <h3 id="lbTitle"></h3>
+      <p id="lbDesc"></p>
+      <div class="lb-like" id="lbLike"><span class="icon">🤍</span> <span id="lbLikeTxt">Favorite this memory</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
